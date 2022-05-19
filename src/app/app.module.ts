@@ -17,7 +17,8 @@ import { ApiService } from './services/api-service';
 import { UserListComponent } from './component/list/user-list/user-list.component';
 import { UserCardComponent } from './component/card/user-card/user-card.component';
 import { StoreModule } from '@ngrx/store';
-import { rootReducer } from 'src/reducers';
+import { rootReducer } from 'src/app/reducers';
+import { YoutubeRepository } from './services/youtube-repository';
 
 
 @NgModule({
@@ -41,7 +42,7 @@ import { rootReducer } from 'src/reducers';
     HttpClientModule,
     StoreModule.forRoot(rootReducer)
   ],
-  providers: [HttpService, ApiService],
+  providers: [HttpService, ApiService, YoutubeRepository],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

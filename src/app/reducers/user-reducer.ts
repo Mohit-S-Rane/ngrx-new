@@ -1,7 +1,7 @@
 
-import { User } from './../app/models/user';
-import { Action } from './../actions/index';
-import { USER_LIST_REQUEST, USER_LIST_SUCCESS } from './../actions/user-action';
+import { User } from '../models/user';
+import { Action } from '../actions/index';
+import { USER_LIST_REQUEST, USER_LIST_SUCCESS } from '../actions/user-action';
 
 export interface UserReducerState {
     loading: boolean;
