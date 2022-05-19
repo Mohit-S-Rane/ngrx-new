@@ -20,6 +20,8 @@ import { StoreModule } from '@ngrx/store';
 import { rootReducer } from 'src/app/reducers';
 import { YoutubeRepository } from './services/youtube-repository';
 import { ErrorComponent } from './component/error/error.component';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { environment } from '../environments/environment';
 
 
 @NgModule({
@@ -42,7 +44,8 @@ import { ErrorComponent } from './component/error/error.component';
     FlexLayoutModule,
     FlexModule,
     HttpClientModule,
-    StoreModule.forRoot(rootReducer)
+    StoreModule.forRoot(rootReducer),
+    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production })
   ],
   providers: [HttpService, ApiService, YoutubeRepository],
   bootstrap: [AppComponent]
