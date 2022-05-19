@@ -1,7 +1,9 @@
 
 import { User } from '../models/user';
 import { Action } from '../actions/index';
-import { USER_LIST_ERROR, USER_LIST_REQUEST, USER_LIST_SUCCESS } from '../actions/user-action';
+import { USER_ADD, USER_LIST_ERROR, USER_LIST_REQUEST, USER_LIST_SUCCESS, USER_UPDATE } from '../actions/user-action';
+import { USER_DELETE } from './../actions/user-action';
+import { retry } from 'rxjs';
 
 export interface UserReducerState {
     loading: boolean;
@@ -21,6 +23,19 @@ export interface UserReducerState {
     switch (action.type) {
       case USER_LIST_REQUEST: {
         return {...state, loading: true};
+      }
+      case USER_DELETE: {
+        const users = state.users.filter(data => data.id !== action.payload.id)
+        return {...state, ...{users}}
+      }
+      case USER_UPDATE: {
+        const users = state.users.filter(data => data.id !== action.payload.data.id)
+        const updatedUser = users.concat(action.payload.data)
+        return {...state, ...{users: updatedUser}}
+      }
+      case USER_ADD: {
+        const users = state.users.concat(action.payload.data);
+        return {...state, ...{users}}
       }
       case USER_LIST_ERROR: {
         return {...state, error: true, loading: false}; 

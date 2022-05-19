@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { combineLatest, Observable, take } from 'rxjs';
-import { UserListRequestAction, UserListSuccessAction } from '../actions/user-action';
+import { UserAddAction, UserDeleteAction, UserListRequestAction, UserListSuccessAction, UserUpdateAction } from '../actions/user-action';
 import { getUserLoaded, getUserLoading, getUsers, RootReducerState } from '../reducers';
 import { ApiService } from './api-service';
 import { User } from './../models/user';
@@ -28,5 +28,20 @@ export class YoutubeRepository {
       }
     });
     return [loading$, getUserData$, getUserError$];
+  }
+
+  deleteUser(id: number) {
+    // First we will call actual delete api
+    this.store.dispatch(new UserDeleteAction({id}))
+  }
+
+  updateUser(data: User) {
+    // First send details to actual API
+    this.store.dispatch(new UserUpdateAction({data}))
+  }
+
+  addUser(data: User) {
+    // First add api to add user and then update init store
+    this.store.dispatch(new UserAddAction({data}))
   }
 }

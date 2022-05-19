@@ -2,4 +2,5 @@
     <app-user-list *ngIf="!this.loading && !this.error" [users]="this.users"></app-user-list>
     <mat-spinner *ngIf="this.loading"></mat-spinner>
     <app-error (reload)="this.tryAgain()" *ngIf="this.error && !this.loading"></app-error>
+    <button *ngIf="!this.loading && !this.error" (click)="addUser()" mat-raised-button color="primary">Add User</button>
 </div>

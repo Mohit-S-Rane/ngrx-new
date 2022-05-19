@@ -22,6 +22,9 @@ import { YoutubeRepository } from './services/youtube-repository';
 import { ErrorComponent } from './component/error/error.component';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
+import { UpdateUserComponent } from './component/update-user/update-user.component';
+import { ReactiveFormsModule } from "@angular/forms";
+
 
 
 @NgModule({
@@ -34,7 +37,9 @@ import { environment } from '../environments/environment';
     UsersComponent,
     UserListComponent,
     UserCardComponent,
-    ErrorComponent
+    ErrorComponent,
+    UpdateUserComponent
+
   ],
   imports: [
     BrowserModule,
@@ -44,6 +49,7 @@ import { environment } from '../environments/environment';
     FlexLayoutModule,
     FlexModule,
     HttpClientModule,
+    ReactiveFormsModule,
     StoreModule.forRoot(rootReducer),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production })
   ],
