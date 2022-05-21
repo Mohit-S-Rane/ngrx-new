@@ -25,6 +25,8 @@ import { environment } from '../environments/environment';
 import { UpdateUserComponent } from './component/update-user/update-user.component';
 import { ReactiveFormsModule } from "@angular/forms";
 import { ViewUserComponent } from './container/view-user/view-user.component';
+import { PostListComponent } from './component/list/post-list/post-list.component';
+import { PostCardComponent } from './component/card/post-card/post-card.component';
 
 
 
@@ -40,7 +42,9 @@ import { ViewUserComponent } from './container/view-user/view-user.component';
     UserCardComponent,
     ErrorComponent,
     UpdateUserComponent,
-    ViewUserComponent
+    ViewUserComponent,
+    PostListComponent,
+    PostCardComponent
 
   ],
   imports: [

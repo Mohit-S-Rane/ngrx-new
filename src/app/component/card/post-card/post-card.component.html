@@ -1,0 +1,23 @@
+<mat-card (click)="open()" fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="30px" style="margin-top: 30px;">
+    <mat-card-title>{{this.post.title}}</mat-card-title>
+    <mat-card-content fxLayout="column">
+        <div fxLayout="row" fxLayoutGap="20px" *ngFor="let comment of post.comments" style="margin: 10px;">
+            <p style="margin: 5px;">{{comment.description}}</p>
+            <div fxLayout="row" fxLayoutGap="10px">
+                <button mat-button color="accent">Edit</button>
+                <button mat-button color="warn">Delete</button>
+            </div>
+        </div>
+    </mat-card-content>
+    <div fxLayout="row" fxLayoutGap="30px">
+        <mat-form-field>
+            <input type="text" matInput placeholder="Enter your Comment">
+        </mat-form-field>
+        <div>
+            <button mat-raised-button color="primary">Add</button>
+        </div>
+    </div>
+
+    <!-- <button (click)="delete()" mat-raised-button color="warn">Delete</button>
+    <button (click)="update()" mat-raised-button color="primary">Update</button> -->
+</mat-card>

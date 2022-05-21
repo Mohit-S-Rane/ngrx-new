@@ -2,11 +2,13 @@ import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { combineLatest, Observable, take } from 'rxjs';
 import { UserAddAction, UserDeleteAction, UserListRequestAction, UserListSuccessAction, UserUpdateAction } from '../actions/user-action';
-import { getUserById, getUserLoaded, getUserLoading, getUsers, RootReducerState } from '../reducers';
+import { getPostError, getPostLoaded, getPostLoading, getPosts, getUserById, getUserLoaded, getUserLoading, getUsers, RootReducerState } from '../reducers';
 import { ApiService } from './api-service';
 import { User } from './../models/user';
 import { UserListErrorAction } from './../actions/user-action';
 import { getUserError } from './../reducers/index';
+import { Post } from '../models/post';
+import { PostListRequestAction, PostListSuccessAction, PostListErrorAction } from './../actions/post-action';
 
 @Injectable()
 export class YoutubeRepository {
@@ -57,5 +59,23 @@ export class YoutubeRepository {
       return res; 
     });
     return user$;
+  }
+
+  getAllPost(force = false): [Observable<boolean>, Observable<Post[]>, Observable<boolean>] {
+    const post$ = this.store.select(getPosts);
+    const loading$ = this.store.select(getPostLoading);
+    const loaded$ = this.store.select(getPostLoaded);
+    const getError$ = this.store.select(getPostError);
+    combineLatest([loaded$, loading$]).pipe(take(1)).subscribe((data) => {
+      if ((!data[0] && !data[1]) || force) {
+        this.store.dispatch(new PostListRequestAction());
+        this.apiService.getAllPost().subscribe((res) => {
+          this.store.dispatch(new PostListSuccessAction({ data: res }));
+        }, error =>{
+            this.store.dispatch(new PostListErrorAction());
+        });
+      }
+    });
+    return [loading$, post$, getError$];
   }
 }
