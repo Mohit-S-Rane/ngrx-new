@@ -1,4 +1,4 @@
-<mat-card fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="30px" style="margin-top: 30px;">
+<mat-card (click)="open()" fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="30px" style="margin-top: 30px;">
     <mat-card-title>{{this.user.name}}</mat-card-title>
     <mat-card-content>{{this.user.email}}</mat-card-content>
     <button (click)="delete()" mat-raised-button color="warn">Delete</button>

@@ -24,6 +24,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 import { UpdateUserComponent } from './component/update-user/update-user.component';
 import { ReactiveFormsModule } from "@angular/forms";
+import { ViewUserComponent } from './container/view-user/view-user.component';
 
 
 
@@ -38,7 +39,8 @@ import { ReactiveFormsModule } from "@angular/forms";
     UserListComponent,
     UserCardComponent,
     ErrorComponent,
-    UpdateUserComponent
+    UpdateUserComponent,
+    ViewUserComponent
 
   ],
   imports: [
