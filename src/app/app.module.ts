@@ -23,7 +23,7 @@ import { ErrorComponent } from './component/error/error.component';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 import { UpdateUserComponent } from './component/update-user/update-user.component';
-import { ReactiveFormsModule } from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { ViewUserComponent } from './container/view-user/view-user.component';
 import { PostListComponent } from './component/list/post-list/post-list.component';
 import { PostCardComponent } from './component/card/post-card/post-card.component';
@@ -57,7 +57,8 @@ import { PostCardComponent } from './component/card/post-card/post-card.componen
     HttpClientModule,
     ReactiveFormsModule,
     StoreModule.forRoot(rootReducer),
-    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production })
+    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
+    FormsModule
   ],
   providers: [HttpService, ApiService, YoutubeRepository],
   bootstrap: [AppComponent]

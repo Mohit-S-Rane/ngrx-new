@@ -1,8 +1,9 @@
 import { createSelector } from '@ngrx/store';
 import { Action } from '../actions/index';
-import { POST_ADD, POST_DELETE, POST_LIST_ERROR, POST_LIST_REQUEST, POST_LIST_SUCCESS, POST_UPDATE } from "../actions/post-action";
+import { COMMENT_REMOVE_ACTION, POST_ADD, POST_DELETE, POST_LIST_ERROR, POST_LIST_REQUEST, POST_LIST_SUCCESS, POST_UPDATE } from "../actions/post-action";
 import { Post } from "../models/post";
 import { StoreUtility } from '../utils/store-utility';
+import { COMMENT_ADD_ACTION, COMMENT_UPDATE_ACTION, CommentDeleteAction } from './../actions/post-action';
 
 
 export interface PostReducerState {
@@ -55,6 +56,36 @@ export function PostReducer(state = initialState, action: Action): PostReducerSt
           const ids = posts.map(user => user.id);
           const newIds = StoreUtility.filterDuplicateIds([...state.ids, ...ids]); 
           return {...state, ...{loaded: true, loading: false, error: false, entities: newEntities, ids: newIds}}
+        }
+        case COMMENT_ADD_ACTION: {
+            const postId = action.payload.postId;
+            const comment = action.payload.data;
+            const oldPost: Post = JSON.parse(JSON.stringify(state.entities[postId]))
+            oldPost.comments.push(comment);
+            const obj = {[postId]: oldPost};
+            const entities = {...state.entities, ...obj};
+            return {...state, ...{entities}}
+        }
+        case COMMENT_UPDATE_ACTION: {
+            const postId = action.payload.postId;
+            const comment = action.payload.data;
+            const oldPost: Post = JSON.parse(JSON.stringify(state.entities[postId]))
+            const oldPostWithoutComment = oldPost.comments.filter(data => data.id !== comment.id);
+            oldPostWithoutComment.push(comment);
+            oldPost.comments = oldPostWithoutComment;
+            const obj = {[postId]: oldPost};
+            const entities = {...state.entities, ...obj};
+            return {...state, ...{entities}} 
+        }
+        case COMMENT_REMOVE_ACTION: {
+            const postId = action.payload.postId;
+            const commentId = action.payload.data;
+            const oldPost: Post = JSON.parse(JSON.stringify(state.entities[postId]))
+            const oldPostWithoutComment = oldPost.comments.filter(data => data.id !== commentId);
+            oldPost.comments = oldPostWithoutComment;
+            const obj = {[postId]: oldPost};
+            const entities = {...state.entities, ...obj};
+            return {...state, ...{entities}} 
         }
         default: {
           return state;

@@ -8,7 +8,9 @@ import { User } from './../models/user';
 import { UserListErrorAction } from './../actions/user-action';
 import { getUserError } from './../reducers/index';
 import { Post } from '../models/post';
-import { PostListRequestAction, PostListSuccessAction, PostListErrorAction } from './../actions/post-action';
+import { Comment } from '../models/post';
+
+import { PostListRequestAction, PostListSuccessAction, PostListErrorAction, CommentAddAction, CommentUpdateAction, CommentDeleteAction } from './../actions/post-action';
 
 @Injectable()
 export class YoutubeRepository {
@@ -77,5 +79,17 @@ export class YoutubeRepository {
       }
     });
     return [loading$, post$, getError$];
+  }
+  
+  addComment(comment: Comment, postId: number) {
+    this.store.dispatch(new CommentAddAction({data: comment, postId}));
+  }
+
+  updateComment(comment: Comment, postId: number) {
+    this.store.dispatch(new CommentUpdateAction({data: comment, postId}));
+  }
+
+  deleteComment(commentId: number, postId: number) {
+    this.store.dispatch(new CommentDeleteAction({id: commentId, postId}));
   }
 }
